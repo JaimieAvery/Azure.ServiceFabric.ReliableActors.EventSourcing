@@ -1,30 +1,30 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using Microsoft.Azure.Documents;
+using Newtonsoft.Json;
 
 namespace EventStore.DocumentDb.EventStore
 {
     using System;
     using System.Collections.Generic;
 
-    public class EventStream : IEnumerable<IEvent>
+    public class EventStream 
     {
         public EventStream(Guid streamId, IEnumerable<IEvent> events)
         {
-            StreamId = streamId;
-            Events = events;
+            Id = streamId;
+            Events = events.ToArray();
         }
 
-        public IEnumerable<IEvent> Events { get; }
+        public IEvent[] Events { get; }
 
-        public Guid StreamId { get; private set; }
+        [JsonProperty(PropertyName = "id")]
+        public Guid Id { get; private set; }
 
-        public IEnumerator<IEvent> GetEnumerator()
+/*        public static explicit operator EventStream(Document doc)
         {
-            return Events.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+            return new EventStream(
+                new Guid(doc.GetPropertyValue<string>("id")),
+                doc.GetPropertyValue<IList<IEvent>>("Events"));
+        }*/
     }
 }

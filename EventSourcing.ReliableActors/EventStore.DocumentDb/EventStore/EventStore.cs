@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.InteropServices.ComTypes;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
@@ -23,22 +24,16 @@ namespace EventStore.DocumentDb.EventStore
             store_configuration = storeConfiguration;
         }
 
-        public async Task AppendToStream(Guid streamId, IEnumerable<IEvent> events)
+        public async Task AppendToStream(Guid streamId, IList<IEvent> events)
         {
             var client = new DocumentClient(store_configuration.EndpointAddress, store_configuration.AuthorisationKey);
             await InitialiseStore(client);
 
             var stream = ReadStream(streamId, client);
-            if (stream != null)
-            {
-                stream.Events.ToList().AddRange(events);
-            }
-            else
-            {
-                stream = new EventStream(streamId, events);
-            }
-            
-            await client.ReplaceDocumentAsync($"dbs/{store_configuration.DatabaseId}/colls/{store_configuration.CollectionId}/{streamId}", stream);
+
+            var updatedStream = new EventStream(stream.Id, stream.Events.Concat(events));
+
+            await client.UpsertDocumentAsync($"dbs/{store_configuration.DatabaseId}/colls/{store_configuration.CollectionId}", updatedStream);
         }
 
         public async Task<EventStream> ReadStream(Guid streamId)
@@ -51,13 +46,15 @@ namespace EventStore.DocumentDb.EventStore
 
         private EventStream ReadStream(Guid streamId, DocumentClient client)
         {
+            
             var r = client
-                .CreateDocumentQuery($"dbs/{store_configuration.DatabaseId}/colls/{store_configuration.CollectionId}")
-                .Where(x => x.Id == streamId.ToString("D"))
+                .CreateDocumentQuery<EventStream>(
+                    $"dbs/{store_configuration.DatabaseId}/colls/{store_configuration.CollectionId}")
+                .Where(x => x.Id == streamId)
                 .AsEnumerable()
                 .FirstOrDefault();
 
-            return r?.GetPropertyValue<EventStream>("EventStream");
+            return r == null ? new EventStream(streamId, new List<IEvent>()) : (EventStream)r;
         }
 
         private async Task InitialiseStore(DocumentClient client)

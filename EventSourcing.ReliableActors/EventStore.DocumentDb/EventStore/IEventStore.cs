@@ -7,7 +7,7 @@
 
     public interface IEventStore
     {
-        Task AppendToStream(Guid streamId, IEnumerable<IEvent> events);
+        Task AppendToStream(Guid streamId, IList<IEvent> events);
 
         Task<EventStream> ReadStream(Guid streamId);
     }
