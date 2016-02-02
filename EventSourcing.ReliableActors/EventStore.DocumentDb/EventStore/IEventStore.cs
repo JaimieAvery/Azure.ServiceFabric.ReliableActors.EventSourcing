@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-
     public interface IEventStore
     {
         Task AppendToStream(Guid streamId, IList<IEvent> events);

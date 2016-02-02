@@ -54,6 +54,7 @@
     <Compile Include="EventStore\IEventStore.cs" />
     <Compile Include="EventStore\StoreConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeNameSerialisationBinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,11 +1,9 @@
-﻿using System.Linq;
-using Microsoft.Azure.Documents;
-using Newtonsoft.Json;
-
-namespace EventStore.DocumentDb.EventStore
+﻿namespace EventStore.DocumentDb.EventStore
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using Newtonsoft.Json;
 
     public class EventStream 
     {
@@ -19,12 +17,5 @@ namespace EventStore.DocumentDb.EventStore
 
         [JsonProperty(PropertyName = "id")]
         public Guid Id { get; private set; }
-
-/*        public static explicit operator EventStream(Document doc)
-        {
-            return new EventStream(
-                new Guid(doc.GetPropertyValue<string>("id")),
-                doc.GetPropertyValue<IList<IEvent>>("Events"));
-        }*/
     }
 }

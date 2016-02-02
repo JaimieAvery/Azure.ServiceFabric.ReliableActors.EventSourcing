@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventStore.DocumentDb.EventStore;
+using Newtonsoft.Json;
 
 namespace EventStore.DocumentDb.Tests
 {
@@ -10,34 +11,60 @@ namespace EventStore.DocumentDb.Tests
     [TestFixture]
     public class EventStoreTests
     {
-        [Test]
-        public async Task Create_New_Stream()
+        private EventStore.EventStore event_store;
+
+        [SetUp]
+        public void Setup()
         {
-            var id = Guid.Empty;
-            var eventStore = new EventStore.EventStore(
+            event_store = new EventStore.EventStore(
                 new StoreConfiguration(
                     new Uri("https://finance-eventstore.documents.azure.com:443/"),
                     "9LBtt/UO4zqA9U7JojNhkN7U1eJpUVxspCCFOrKKPEH3HXYxbsPRJh4J44fGbwl3yKvzbUAoGR2SMiaSkY9NKw==",
                     "Finance",
                     "Payments"));
 
-            await eventStore.AppendToStream(id, new List<IEvent> {new Event(Guid.NewGuid(), "Test")});
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Binder = new TypeNameSerialisationBinder("EventStore.DocumentDb.Tests.{0}, EventStore.DocumentDb.Tests"),
+                TypeNameHandling = TypeNameHandling.Auto
+            };
+        }
+
+        [Test]
+        public async Task Create_New_Stream()
+        {
+            var id = Guid.NewGuid();
+
+            await event_store.AppendToStream(id, new List<IEvent> {new Event(Guid.NewGuid(), "Test")});
         }
 
         [Test]
         public async Task Update_Existing_Stream()
         {
             var id = Guid.NewGuid();
-            var eventStore = new EventStore.EventStore(
-                new StoreConfiguration(
-                    new Uri("https://finance-eventstore.documents.azure.com:443/"),
-                    "9LBtt/UO4zqA9U7JojNhkN7U1eJpUVxspCCFOrKKPEH3HXYxbsPRJh4J44fGbwl3yKvzbUAoGR2SMiaSkY9NKw==",
-                    "Finance",
-                    "Payments"));
 
-            await eventStore.AppendToStream(id, new List<IEvent> {new Event(Guid.NewGuid(), "Test")});
+            await event_store.AppendToStream(id, new List<IEvent> {new Event(Guid.NewGuid(), "Test")});
 
-            await eventStore.AppendToStream(id, new List<IEvent> {new Event(Guid.NewGuid(), "Second Test")});
+            await event_store.AppendToStream(id, new List<IEvent> {new SomeOtherEvent(Guid.NewGuid(), DateTime.Now, 5473)});
+        }
+
+        [Test]
+        public async Task Read_Stream()
+        {
+            var id = Guid.NewGuid();
+
+            await event_store.AppendToStream(
+                id,
+                new List<IEvent>
+                {
+                    new Event(Guid.NewGuid(), "Test"),
+                    new SomeOtherEvent(Guid.NewGuid(), DateTime.Now, new Random().Next())
+                });
+
+            var stream = await event_store.ReadStream(id);
+
+            Assert.That(stream.Events.Length, Is.EqualTo(2));
+            Assert.That(stream.Id == id);
         }
     }
 
@@ -52,5 +79,21 @@ namespace EventStore.DocumentDb.Tests
         public Guid EventId { get; }
 
         public string Data { get; }
+    }
+
+    public class SomeOtherEvent : IEvent
+    {
+        public SomeOtherEvent(Guid eventId, DateTime date, int value)
+        {
+            EventId = eventId;
+            Date = date;
+            Value = value;
+        }
+
+        public Guid EventId { get; }
+
+        public DateTime Date { get; }
+
+        public int Value { get; }
     }
 }
