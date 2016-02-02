@@ -1,10 +1,10 @@
 using System;
 
-namespace EventStore.DocumentDb.EventStore
+namespace EventStore.DocumentDb
 {
-    public class StoreConfiguration
+    public class DocumentDbConfiguration
     {
-        public StoreConfiguration(Uri endpointAddress, string authorisationKey, string databaseId, string collectionId)
+        public DocumentDbConfiguration(Uri endpointAddress, string authorisationKey, string databaseId, string collectionId)
         {
             if (endpointAddress == null) throw new ArgumentNullException(nameof(endpointAddress));
             if (authorisationKey == null) throw new ArgumentNullException(nameof(authorisationKey));

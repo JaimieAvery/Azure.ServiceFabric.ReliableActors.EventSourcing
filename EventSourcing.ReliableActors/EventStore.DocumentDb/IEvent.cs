@@ -1,4 +1,4 @@
-namespace EventStore.DocumentDb.EventStore
+namespace EventStore.DocumentDb
 {
     using System;
 

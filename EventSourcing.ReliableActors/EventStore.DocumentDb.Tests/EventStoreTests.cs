@@ -1,27 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using EventStore.DocumentDb.EventStore;
-using Newtonsoft.Json;
-
-namespace EventStore.DocumentDb.Tests
+﻿namespace EventStore.DocumentDb.Tests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.Azure.Documents.Client;
+    using Newtonsoft.Json;
     using NUnit.Framework;
 
     [TestFixture]
     public class EventStoreTests
     {
-        private EventStore.EventStore event_store;
+        private EventStore event_store;
+        private readonly string document_db_connection_address = ConfigurationManager.AppSettings["document_db_connection_address"];
+        private readonly string document_db_connection_key = ConfigurationManager.AppSettings["document_db_connection_key"];
+        private readonly string database_id = Guid.NewGuid().ToString("D");
+        private readonly string collection_id = Guid.NewGuid().ToString("D");
+
+        [OneTimeTearDown]
+        public async Task OneTimeTearDown()
+        {
+            var client = new DocumentClient(new Uri(document_db_connection_address), document_db_connection_key);
+            await client.DeleteDatabaseAsync($"dbs/{database_id}");
+        }
 
         [SetUp]
         public void Setup()
         {
-            event_store = new EventStore.EventStore(
-                new StoreConfiguration(
-                    new Uri("https://finance-eventstore.documents.azure.com:443/"),
-                    "9LBtt/UO4zqA9U7JojNhkN7U1eJpUVxspCCFOrKKPEH3HXYxbsPRJh4J44fGbwl3yKvzbUAoGR2SMiaSkY9NKw==",
-                    "Finance",
-                    "Payments"));
+            event_store = new EventStore(
+                new DocumentDbConfiguration(
+                    new Uri(document_db_connection_address),
+                    document_db_connection_key,
+                    database_id,
+                    collection_id));
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
@@ -63,7 +75,7 @@ namespace EventStore.DocumentDb.Tests
 
             var stream = await event_store.ReadStream(id);
 
-            Assert.That(stream.Events.Length, Is.EqualTo(2));
+            Assert.That(stream.Count(), Is.EqualTo(2));
             Assert.That(stream.Id == id);
         }
     }
