@@ -1,7 +1,7 @@
-using System;
-
 namespace EventStore.DocumentDb
 {
+    using System;
+
     public class DocumentDbConfiguration
     {
         public DocumentDbConfiguration(Uri endpointAddress, string authorisationKey, string databaseId, string collectionId)

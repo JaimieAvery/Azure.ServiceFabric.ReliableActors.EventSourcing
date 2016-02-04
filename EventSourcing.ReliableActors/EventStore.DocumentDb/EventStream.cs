@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-
-namespace EventStore.DocumentDb
+﻿namespace EventStore.DocumentDb
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Newtonsoft.Json;
+
     [JsonObject]
     public class EventStream<T> : IEnumerable<T>
     {
