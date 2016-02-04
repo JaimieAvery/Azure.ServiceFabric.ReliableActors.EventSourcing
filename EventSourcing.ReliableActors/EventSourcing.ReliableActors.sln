@@ -9,6 +9,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{C92BCF32-D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore.DocumentDb.Tests", "EventStore.DocumentDb.Tests\EventStore.DocumentDb.Tests.csproj", "{E77BF291-DDD4-4706-9711-3023ECAE688B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{5414D298-E133-4347-827A-58641CBA2D55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{B0641F75-8A57-4CDE-9F14-2D314F0DFD48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{4C3A791C-E441-42CA-904C-85F570F1EA46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,11 +29,16 @@ Global
 		{E77BF291-DDD4-4706-9711-3023ECAE688B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E77BF291-DDD4-4706-9711-3023ECAE688B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E77BF291-DDD4-4706-9711-3023ECAE688B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C3A791C-E441-42CA-904C-85F570F1EA46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C3A791C-E441-42CA-904C-85F570F1EA46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C3A791C-E441-42CA-904C-85F570F1EA46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C3A791C-E441-42CA-904C-85F570F1EA46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{BC0EA1B3-CF0E-4827-AF67-16FD60D4A55F} = {5414D298-E133-4347-827A-58641CBA2D55}
 		{E77BF291-DDD4-4706-9711-3023ECAE688B} = {C92BCF32-D6E8-455F-A6CC-0020D8483096}
 	EndGlobalSection
 EndGlobal

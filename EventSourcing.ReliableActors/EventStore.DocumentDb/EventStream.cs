@@ -7,20 +7,20 @@ using Newtonsoft.Json;
 namespace EventStore.DocumentDb
 {
     [JsonObject]
-    public class EventStream : IEnumerable<IEvent>
+    public class EventStream<T> : IEnumerable<T>
     {
-        public EventStream(Guid streamId, IEnumerable<IEvent> events)
+        public EventStream(Guid streamId, IEnumerable<T> events)
         {
             Id = streamId;
             Events = events.ToArray();
         }
 
-        public IEvent[] Events { get; }
+        public T[] Events { get; }
 
         [JsonProperty(PropertyName = "id")]
         public Guid Id { get; private set; }
 
-        public IEnumerator<IEvent> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             return Events.AsEnumerable().GetEnumerator();
         }

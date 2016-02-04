@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace EventStore.DocumentDb
 {
-    public interface IEventStore
+    public interface IEventStore<T>
     {
-        Task AppendToStream(Guid streamId, IEnumerable<IEvent> events);
+        Task AppendToStream(Guid streamId, IEnumerable<T> events);
 
-        Task<EventStream> ReadStream(Guid streamId);
+        Task<EventStream<T>> ReadStream(Guid streamId);
     }
 }

@@ -12,7 +12,7 @@
     [TestFixture]
     public class EventStoreTests
     {
-        private EventStore event_store;
+        private EventStore<IEvent> event_store;
         private readonly string document_db_connection_address = ConfigurationManager.AppSettings["document_db_connection_address"];
         private readonly string document_db_connection_key = ConfigurationManager.AppSettings["document_db_connection_key"];
         private readonly string database_id = Guid.NewGuid().ToString("D");
@@ -28,7 +28,7 @@
         [SetUp]
         public void Setup()
         {
-            event_store = new EventStore(
+            event_store = new EventStore<IEvent>(
                 new DocumentDbConfiguration(
                     new Uri(document_db_connection_address),
                     document_db_connection_key,
@@ -107,5 +107,10 @@
         public DateTime Date { get; }
 
         public int Value { get; }
+    }
+
+    public interface IEvent
+    {
+        Guid EventId { get; }
     }
 }

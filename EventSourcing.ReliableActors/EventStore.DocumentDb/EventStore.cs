@@ -8,7 +8,7 @@ namespace EventStore.DocumentDb
     using Microsoft.Azure.Documents.Client;
     using Microsoft.Azure.Documents.Linq;
 
-    public class EventStore : IEventStore
+    public class EventStore<T> : IEventStore<T>
     {
         private readonly DocumentDbConfiguration document_db_configuration;
         private bool database_initialised;
@@ -21,19 +21,19 @@ namespace EventStore.DocumentDb
             document_db_configuration = documentDbConfiguration;
         }
 
-        public async Task AppendToStream(Guid streamId, IEnumerable<IEvent> events)
+        public async Task AppendToStream(Guid streamId, IEnumerable<T> events)
         {
             var client = new DocumentClient(document_db_configuration.EndpointAddress, document_db_configuration.AuthorisationKey);
             await InitialiseStore(client);
 
             var stream = ReadStream(streamId, client);
 
-            var updatedStream = new EventStream(stream.Id, stream.Events.Concat(events));
+            var updatedStream = new EventStream<T>(stream.Id, stream.Concat(events));
 
             await client.UpsertDocumentAsync($"dbs/{document_db_configuration.DatabaseId}/colls/{document_db_configuration.CollectionId}", updatedStream);
         }
 
-        public async Task<EventStream> ReadStream(Guid streamId)
+        public async Task<EventStream<T>> ReadStream(Guid streamId)
         {
             var client = new DocumentClient(document_db_configuration.EndpointAddress, document_db_configuration.AuthorisationKey);
             await InitialiseStore(client);
@@ -41,17 +41,17 @@ namespace EventStore.DocumentDb
             return ReadStream(streamId, client);
         }
 
-        private EventStream ReadStream(Guid streamId, DocumentClient client)
+        private EventStream<T> ReadStream(Guid streamId, DocumentClient client)
         {
             
             var r = client
-                .CreateDocumentQuery<EventStream>(
+                .CreateDocumentQuery<EventStream<T>>(
                     $"dbs/{document_db_configuration.DatabaseId}/colls/{document_db_configuration.CollectionId}")
                 .Where(x => x.Id == streamId)
                 .AsEnumerable()
                 .FirstOrDefault();
 
-            return r ?? new EventStream(streamId, new List<IEvent>());
+            return r ?? new EventStream<T>(streamId, new List<T>());
         }
 
         private async Task InitialiseStore(DocumentClient client)

@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="EventStore.cs" />
     <Compile Include="EventStream.cs" />
-    <Compile Include="IEvent.cs" />
     <Compile Include="IEventStore.cs" />
     <Compile Include="DocumentDbConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
