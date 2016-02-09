@@ -23,12 +23,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments.WebJob", "Payments
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{DB42A826-FE46-4554-88AF-58BB10C4F24D}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Client.Service.WebApi", "Client.Service.WebApi\Client.Service.WebApi.xproj", "{8F8BC645-7472-4A29-8A6D-9095BA3E47FF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6EF76D78-1D1E-49C7-88FB-44F7849C5D98}"
 	ProjectSection(SolutionItems) = preProject
 		Client.Service.WebApi\global.json = Client.Service.WebApi\global.json
 	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Client.Checkout.WebApi", "Client.Checkout.WebApi\Client.Checkout.WebApi.xproj", "{7E029871-BE75-4F4D-9822-B2C35E8DC3AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,10 +56,10 @@ Global
 		{D83C14CB-0819-46F1-8082-4AEFB447C160}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D83C14CB-0819-46F1-8082-4AEFB447C160}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D83C14CB-0819-46F1-8082-4AEFB447C160}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F8BC645-7472-4A29-8A6D-9095BA3E47FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F8BC645-7472-4A29-8A6D-9095BA3E47FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F8BC645-7472-4A29-8A6D-9095BA3E47FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F8BC645-7472-4A29-8A6D-9095BA3E47FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E029871-BE75-4F4D-9822-B2C35E8DC3AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E029871-BE75-4F4D-9822-B2C35E8DC3AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E029871-BE75-4F4D-9822-B2C35E8DC3AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E029871-BE75-4F4D-9822-B2C35E8DC3AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +69,6 @@ Global
 		{E77BF291-DDD4-4706-9711-3023ECAE688B} = {C92BCF32-D6E8-455F-A6CC-0020D8483096}
 		{8F17226C-481D-4DA8-A02B-E8AB670CDD24} = {F81B19B2-D720-401A-A2B0-63B8D14FF818}
 		{D83C14CB-0819-46F1-8082-4AEFB447C160} = {B0641F75-8A57-4CDE-9F14-2D314F0DFD48}
-		{8F8BC645-7472-4A29-8A6D-9095BA3E47FF} = {DB42A826-FE46-4554-88AF-58BB10C4F24D}
+		{7E029871-BE75-4F4D-9822-B2C35E8DC3AE} = {DB42A826-FE46-4554-88AF-58BB10C4F24D}
 	EndGlobalSection
 EndGlobal

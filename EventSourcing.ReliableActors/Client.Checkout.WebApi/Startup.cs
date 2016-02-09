@@ -1,7 +1,4 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.ServiceBus;
-
-namespace Client.Service.WebApi
+﻿namespace Client.Checkout.WebApi
 {
     using Microsoft.AspNet.Builder;
     using Microsoft.AspNet.Hosting;
@@ -23,18 +20,15 @@ namespace Client.Service.WebApi
 
         public IConfigurationRoot Configuration { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
             services.AddMvc();
             services.Add(new ServiceDescriptor(
-                typeof(QueueClient),
+                typeof (QueueClient),
                 serviceProvider => QueueClient.CreateFromConnectionString(Configuration["ServiceBus:Orders-Commands-ConnectionString"], "Orders-Commands"),
                 ServiceLifetime.Scoped));
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -47,7 +41,6 @@ namespace Client.Service.WebApi
             app.UseMvc();
         }
 
-        // Entry point for the application.
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }
