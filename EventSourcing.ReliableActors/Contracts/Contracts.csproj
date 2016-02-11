@@ -49,6 +49,7 @@
     <Compile Include="ICommand.cs" />
     <Compile Include="IEvent.cs" />
     <Compile Include="JsonExtentions.cs" />
+    <Compile Include="OrderPlaced.cs" />
     <Compile Include="PlaceOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
