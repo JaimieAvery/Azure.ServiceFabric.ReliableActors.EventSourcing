@@ -6,7 +6,7 @@
 
     using Microsoft.AspNet.Mvc;
 
-    [Route("api")]
+    [Route("orders")]
     public class OrderController : Controller
     {
         private readonly QueueClient queue_client;
@@ -20,11 +20,24 @@
         }
 
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Order order)
         {
-            queue_client.Send(new BrokeredMessage(new PlaceOrder(value).ToJson()));
+            var message = new BrokeredMessage(new PlaceOrder(order.OrderId, order.CustomerId, order.BagId).ToJson())
+            {
+                ContentType = "application/json"
+            };
+            queue_client.Send(message);
 
             Ok();
         }
+    }
+
+    public class Order
+    {
+        public Guid OrderId { get; set; }
+
+        public string BagId { get; set; }
+
+        public string CustomerId { get; set; }
     }
 }

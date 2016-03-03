@@ -9,7 +9,9 @@ namespace Orders.WebJob
         {
             new JobHost(new JobHostConfiguration
             {
-                ServiceBusConnectionString = $"{ConfigurationManager.ConnectionStrings["AzureWebJobsServiceBus"].ConnectionString}"
+                ServiceBusConnectionString = $"{ConfigurationManager.ConnectionStrings["OrdersWebJobsServiceBus"].ConnectionString}",
+                DashboardConnectionString = string.Empty
+                
             }).RunAndBlock();
         }
     }

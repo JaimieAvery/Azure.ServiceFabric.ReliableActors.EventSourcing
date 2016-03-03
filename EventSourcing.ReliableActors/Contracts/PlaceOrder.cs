@@ -4,14 +4,20 @@
 
     public class PlaceOrder : ICommand
     {
-        public PlaceOrder(string value)
+        public PlaceOrder(Guid orderId, string customerId, string bagId)
         {
-            Value = value;
             Id = Guid.NewGuid();
+            OrderId = orderId;
+            BagId = bagId;
+            CustomerId = customerId;
         }
 
         public Guid Id { get; }
 
-        public string Value { get; }
+        public Guid OrderId { get; }
+
+        public string BagId { get; }
+
+        public string CustomerId { get; }
     }
 }
