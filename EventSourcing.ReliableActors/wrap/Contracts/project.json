@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net461": {
+      "wrappedProject": "../../Contracts/Contracts.csproj",
+      "bin": {
+        "assembly": "../../Contracts/obj/{configuration}/Contracts.dll",
+        "pdb": "../../Contracts/obj/{configuration}/Contracts.pdb"
+      },
+      "dependencies": {
+        "Newtonsoft.Json": "8.0.2"
+      }
+    }
+  }
+}

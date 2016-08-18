@@ -1,0 +1,1 @@
+C:\Users\JaimieAP\Source\Repos\Azure.ServiceFabric.ReliableActors.EventSourcing\EventSourcing.ReliableActors\artifacts\obj\Client.Checkout.WebApi\Debug\Client.Checkout.WebApi.xprojResolveAssemblyReference.cache

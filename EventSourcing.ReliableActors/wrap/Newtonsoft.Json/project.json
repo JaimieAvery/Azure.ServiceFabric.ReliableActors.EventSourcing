@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net461": {
+      "bin": {
+        "assembly": "../../packages/Newtonsoft.Json.5.0.7/lib/net45/Newtonsoft.Json.dll"
+      }
+    }
+  }
+}

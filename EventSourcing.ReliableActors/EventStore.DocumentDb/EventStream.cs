@@ -18,7 +18,7 @@
         public T[] Events { get; }
 
         [JsonProperty(PropertyName = "id")]
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
 
         public IEnumerator<T> GetEnumerator()
         {

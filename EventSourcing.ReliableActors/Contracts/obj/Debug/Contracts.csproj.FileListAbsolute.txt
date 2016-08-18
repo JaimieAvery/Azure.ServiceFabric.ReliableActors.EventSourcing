@@ -1,0 +1,7 @@
+C:\Users\JaimieAP\Source\Repos\Azure.ServiceFabric.ReliableActors.EventSourcing\EventSourcing.ReliableActors\Contracts\bin\Debug\Contracts.dll
+C:\Users\JaimieAP\Source\Repos\Azure.ServiceFabric.ReliableActors.EventSourcing\EventSourcing.ReliableActors\Contracts\bin\Debug\Contracts.pdb
+C:\Users\JaimieAP\Source\Repos\Azure.ServiceFabric.ReliableActors.EventSourcing\EventSourcing.ReliableActors\Contracts\bin\Debug\Newtonsoft.Json.dll
+C:\Users\JaimieAP\Source\Repos\Azure.ServiceFabric.ReliableActors.EventSourcing\EventSourcing.ReliableActors\Contracts\bin\Debug\Newtonsoft.Json.xml
+C:\Users\JaimieAP\Source\Repos\Azure.ServiceFabric.ReliableActors.EventSourcing\EventSourcing.ReliableActors\Contracts\obj\Debug\Contracts.csprojResolveAssemblyReference.cache
+C:\Users\JaimieAP\Source\Repos\Azure.ServiceFabric.ReliableActors.EventSourcing\EventSourcing.ReliableActors\Contracts\obj\Debug\Contracts.dll
+C:\Users\JaimieAP\Source\Repos\Azure.ServiceFabric.ReliableActors.EventSourcing\EventSourcing.ReliableActors\Contracts\obj\Debug\Contracts.pdb
